@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify
 from face_service import face_service
 
@@ -32,6 +33,9 @@ def health():
     print(f"[Flask /health] Loaded faces: {len(face_service.known_embeddings)}")
     return jsonify({"status": "ok", "loaded_faces": len(face_service.known_embeddings)})
 
+
+# ==================== UPDATED MAIN BLOCK ====================
 if __name__ == "__main__":
-    print("[Flask] Starting server on 0.0.0.0:5000")
-    app.run(host="0.0.0.0", port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    print(f"[Flask] Starting server on 0.0.0.0:{port}")
+    app.run(host="0.0.0.0", port=port, debug=False)
